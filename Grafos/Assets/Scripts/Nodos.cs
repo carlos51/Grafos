@@ -9,22 +9,31 @@ public class Nodos : MonoBehaviour
 
     public GameObject first;
     public GameObject last;
+    [Range(3,15)]
     public int nodos = 3;
     public GameObject[] cuerda;
     Vector3 initPos, finalPos;
     public float spring = 10;
     public float damper = 1;
-    float r, delta;
-    Vector3 direccion;
+    [Range (0.01f, 1f)]
+    public float r, delta;
+    public Vector3 direccion;
     // Start is called before the first frame update
+    private void OnDrawGizmos()
+    {
+        direccion = last.transform.position - first.transform.position;
+        delta = direccion.magnitude / nodos;
+        direccion = direccion.normalized;
+        
+    }
     void Start()
     {
         cuerda = new GameObject[nodos];
         initPos = gameObject.transform.position;
         first.transform.position = initPos;
-        direccion = last.transform.position - first.transform.position;
-        delta = direccion.magnitude/nodos;
-        direccion = direccion.normalized;
+        
+        
+        
 
         cuerda[0] = first;
         cuerda[nodos-1] = last;
