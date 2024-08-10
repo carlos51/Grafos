@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Freya;
 using Unity.VisualScripting;
 using System.Buffers.Text;
 
@@ -26,7 +25,11 @@ public class Malla : MonoBehaviour
         CalculateOrthogonalVectors();
         SetTransformationMatrices();
         DrawGizmos();
-        GenerateMesh();
+        CalcularTriangulos();
+    }
+    private void Update()
+    {
+        Debug.Log(nodos.cuerda[0].transform.position);
     }
 
     private void InitializeVariables()
@@ -70,7 +73,12 @@ public class Malla : MonoBehaviour
         }
     }
 
-    private void GenerateMesh()
+    private void ActualizarVertices()
+    {
+
+    }
+
+    private void CalcularTriangulos()
     {
         for (int j = 1; j < nodos.nodos; j++)
         {
