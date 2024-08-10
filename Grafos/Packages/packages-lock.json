@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.acegikmo.mathfs": {
-      "version": "https://github.com/FreyaHolmer/Mathfs.git#0.1.0",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "05c3df4c8c7ab711735d33de606dee867fd11f05"
-    },
     "com.unity.adaptiveperformance": {
       "version": "5.1.0",
       "depth": 1,
