@@ -41,15 +41,16 @@ public class Nodos : MonoBehaviour
         cuerda[nodos-1] = last;
 
         
-        for (int i = 1; i < nodos; i++)
+        for (int i = 1; i < nodos-1; i++)
         {
-            Rigidbody rigidbody = cuerda[i - 1].GetComponent<Rigidbody>();
+            
+            Rigidbody last = cuerda[i - 1].GetComponent<Rigidbody>();
             GameObject current = Instantiate(first);
             current.name = i.ToString();
             current.transform.position = initPos + direccion * i * delta;
             current.transform.SetParent(gameObject.transform);
             ConfigurableJoint joint = current.AddComponent<ConfigurableJoint>();
-            joint.connectedBody = rigidbody;
+            joint.connectedBody = last;
             //joint.autoConfigureConnectedAnchor = false;
             joint.xMotion = ConfigurableJointMotion.Locked;
             joint.yMotion = ConfigurableJointMotion.Locked;
@@ -67,6 +68,13 @@ public class Nodos : MonoBehaviour
         cuerda[0].GetComponent<Rigidbody>().isKinematic = true;
         ConfigurableJoint joint2 = cuerda[nodos - 1].AddComponent<ConfigurableJoint>();
         joint2.connectedBody = cuerda[nodos-2].GetComponent<Rigidbody>();
+        joint2.xMotion = ConfigurableJointMotion.Locked;
+        joint2.yMotion = ConfigurableJointMotion.Locked;
+        joint2.zMotion = ConfigurableJointMotion.Locked;
+
+        joint2.anchor = Vector3.zero;  // Anclar en el centro del objeto
+        joint2.connectedAnchor = -direccion * delta;
+
         //joint2.autoConfigureConnectedAnchor = false;
         //joint2.spring = spring;
         //joint2.damper = damper;
@@ -76,6 +84,6 @@ public class Nodos : MonoBehaviour
 
 
     }
-   
-    
+
+
 }
