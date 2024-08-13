@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Obi;
 
-[RequireComponent(typeof(ObiRope))]
-public class RopeSweepCut : MonoBehaviour
+public class CoratarCuerda : MonoBehaviour
 {
-
     public Camera cam;
 
-    ObiRope rope;
+    // Cambiado a un array para manejar múltiples cuerdas
+    public ObiRope[] ropes;
     LineRenderer lineRenderer;
     Vector3 cutStartPosition;
     Vector3 cutEndPosition;
@@ -17,7 +16,6 @@ public class RopeSweepCut : MonoBehaviour
 
     private void Awake()
     {
-        rope = GetComponent<ObiRope>();
         AddMouseLine();
     }
 
@@ -28,12 +26,20 @@ public class RopeSweepCut : MonoBehaviour
 
     private void OnEnable()
     {
-        rope.OnSimulationStart += Rope_OnBeginSimulation;
+        // Suscribirse al evento para cada cuerda en el array
+        foreach (var rope in ropes)
+        {
+            rope.OnSimulationStart += Rope_OnBeginSimulation;
+        }
     }
 
     private void OnDisable()
     {
-        rope.OnSimulationStart -= Rope_OnBeginSimulation;
+        // Desuscribirse del evento para cada cuerda en el array
+        foreach (var rope in ropes)
+        {
+            rope.OnSimulationStart -= Rope_OnBeginSimulation;
+        }
     }
 
     private void AddMouseLine()
@@ -56,10 +62,10 @@ public class RopeSweepCut : MonoBehaviour
 
     private void LateUpdate()
     {
-        // do nothing if we don't have a camera to cut from.
+        // No hacer nada si no tenemos una cámara para cortar.
         if (cam == null) return;
 
-        // process user input and cut the rope if necessary.
+        // Procesar la entrada del usuario y cortar la cuerda si es necesario.
         ProcessInput();
     }
 
@@ -67,55 +73,59 @@ public class RopeSweepCut : MonoBehaviour
     {
         if (cut)
         {
-            ScreenSpaceCut(cutStartPosition, cutEndPosition);
+            // Cortar todas las cuerdas
+            foreach (var rope in ropes)
+            {
+                ScreenSpaceCut(rope, cutStartPosition, cutEndPosition);
+            }
+
             cut = false;
-            Invoke("sujeciones", 0.1f);
         }
-        
     }
 
-    /**
-     * Very simple mouse-based input. Not ideal for multitouch screens as it only supports one finger, though.
-     */
     private void ProcessInput()
     {
-        // When the user clicks the mouse, start a line cut:
-        if (Input.GetMouseButtonDown(0))
+        // Cuando el usuario hace clic, comenzar un corte de línea:
+        // Verificar si hay al menos un toque en la pantalla
+        if (Input.touchCount > 0)
         {
-            cutStartPosition = Input.mousePosition;
-            lineRenderer.SetPosition(0, cam.ScreenToWorldPoint(new Vector3(cutStartPosition.x, cutStartPosition.y, 0.5f)));
-            lineRenderer.enabled = true;
-        }
+            Touch touch = Input.GetTouch(0);
 
-        if (lineRenderer.enabled)
-            lineRenderer.SetPosition(1, cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.5f)));
+            switch (touch.phase)
+            {
+                // Cuando el usuario toca la pantalla, empezar el corte de línea:
+                case TouchPhase.Began:
+                    cutStartPosition = touch.position;
+                    lineRenderer.SetPosition(0, cam.ScreenToWorldPoint(new Vector3(cutStartPosition.x, cutStartPosition.y, 0.5f)));
+                    lineRenderer.enabled = true;
+                    break;
 
-        // When the user lifts the mouse, proceed to cut.
-        if (Input.GetMouseButtonUp(0))
-        {
-            cutEndPosition = Input.mousePosition;
-            lineRenderer.enabled = false;
-            cut = true;
+                // Mientras el usuario mueve el dedo, actualizar la línea:
+                case TouchPhase.Moved:
+                case TouchPhase.Stationary:
+                    if (lineRenderer.enabled)
+                        lineRenderer.SetPosition(1, cam.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 0.5f)));
+                    break;
+
+                // Cuando el usuario suelta la pantalla, proceder a cortar:
+                case TouchPhase.Ended:
+                    cutEndPosition = touch.position;
+                    lineRenderer.enabled = false;
+                    cut = true;
+                    break;
+            }
         }
     }
 
-
-    /**
-     * Cuts the rope using a line segment, expressed in screen-space.
-     */
-    private void ScreenSpaceCut(Vector2 lineStart, Vector2 lineEnd)
+    private void ScreenSpaceCut(ObiRope rope, Vector2 lineStart, Vector2 lineEnd)
     {
-        // keep track of whether the rope was cut or not.
         bool ropeCut = false;
 
-        // iterate over all elements and test them for intersection with the line:
         for (int i = 0; i < rope.elements.Count; ++i)
         {
-            // project the both ends of the element to screen space.
             Vector3 screenPos1 = cam.WorldToScreenPoint(rope.solver.positions[rope.elements[i].particle1]);
             Vector3 screenPos2 = cam.WorldToScreenPoint(rope.solver.positions[rope.elements[i].particle2]);
 
-            // test if there's an intersection:
             if (SegmentSegmentIntersection(screenPos1, screenPos2, lineStart, lineEnd, out float r, out float s))
             {
                 ropeCut = true;
@@ -123,16 +133,9 @@ public class RopeSweepCut : MonoBehaviour
             }
         }
 
-        // If the rope was cut at any point, rebuilt constraints:
         if (ropeCut) rope.RebuildConstraintsFromElements();
     }
 
-    /**
-     * line segment 1 is AB = A+r(B-A)
-     * line segment 2 is CD = C+s(D-C)
-     * if they intesect, then A+r(B-A) = C+s(D-C), solving for r and s gives the formula below.
-     * If both r and s are in the 0,1 range, it meant the segments intersect.
-     */
     private bool SegmentSegmentIntersection(Vector2 A, Vector2 B, Vector2 C, Vector2 D, out float r, out float s)
     {
         float denom = (B.x - A.x) * (D.y - C.y) - (B.y - A.y) * (D.x - C.x);
@@ -146,12 +149,5 @@ public class RopeSweepCut : MonoBehaviour
         s = sNum / denom;
 
         return (r >= 0 && r <= 1 && s >= 0 && s <= 1);
-    }
-
-    private void sejeciones()
-    {
-        ObiParticleAttachment[] sujeciones = GetComponents<ObiParticleAttachment>();
-        sujeciones[0].enabled = false;
-        sujeciones[1].enabled = false;
     }
 }
