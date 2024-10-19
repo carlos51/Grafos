@@ -3,29 +3,37 @@ using UnityEngine;
 
 public class Grafo
 {
-    public List<GameObject> vertices;  // Vértices del grafo
-    public List<(int, int)> aristas;   // Aristas como pares de índices de vértices
+    public List<GameObject> vertices;  // Vértices del grafo (alfileres).
+    public List<(int, int)> aristas;   // Aristas (cuerdas) como pares de índices.
 
-    public Grafo(List<GameObject> verts)
+    public Grafo(List<GameObject> vertices)
     {
-        vertices = verts;
+        this.vertices = vertices;
         aristas = new List<(int, int)>();
     }
 
-    // Agrega una arista entre dos vértices
+    // Agrega una arista (cuerda) entre dos vértices.
     public void AgregarArista(int v1, int v2)
     {
         aristas.Add((v1, v2));
+        Debug.Log($"Arista agregada entre {v1} y {v2}");
     }
 
-    // Elimina la arista especificada por su índice
+    // Elimina una arista del grafo.
     public void EliminarArista(int indice)
     {
         if (indice >= 0 && indice < aristas.Count)
         {
+            var arista = aristas[indice];
             aristas.RemoveAt(indice);
-            Debug.Log($"Arista {indice} eliminada del grafo.");
+            Debug.Log($"Arista eliminada entre {arista.Item1} y {arista.Item2}");
         }
     }
-}
 
+    // Verifica si se ha formado un camino hamiltoniano.
+    public bool CaminoHamiltoniano()
+    {
+        // Lógica de detección de camino hamiltoniano (simplificada por ahora).
+        return aristas.Count == vertices.Count - 1;
+    }
+}

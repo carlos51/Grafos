@@ -5,34 +5,35 @@ using Obi;
 
 public class RopeDesanble : MonoBehaviour
 {
-    public ObiRope rope;     // Referencia a la cuerda física
-    public Grafo grafo;       // Referencia al grafo lógico
-    public int indiceArista;  // Índice de la arista en el grafo
+    public ObiRope rope;      // Referencia a la cuerda física.
+    public Grafo grafo;        // Referencia al grafo lógico.
+    public int indiceArista;   // Índice de la arista en el grafo.
 
-    private int elementos;    // Número de segmentos actuales de la cuerda
+    private int segmentos;     // Número inicial de segmentos de la cuerda.
 
     void Start()
     {
         if (rope == null)
         {
-            rope = GetComponent<ObiRope>();
+            rope = GetComponent<ObiRope>();  // Asegura la referencia a ObiRope.
         }
 
-        elementos = rope.elements.Count;
+        segmentos = rope.elements.Count;  // Guarda el número inicial de segmentos.
     }
 
     void Update()
     {
-        int elementosActuales = rope.elements.Count;
+        int segmentosActuales = rope.elements.Count;
 
-        if (elementosActuales != elementos) // Detecta cambios en los segmentos
+        // Si el número de segmentos cambia, significa que la cuerda fue cortada.
+        if (segmentosActuales != segmentos)
         {
-            elementos = elementosActuales;
+            segmentos = segmentosActuales;
 
-            if (elementos == 0) // Si la cuerda fue completamente cortada
+            if (segmentos == 0)  // Si la cuerda ha sido completamente cortada.
             {
-                grafo.EliminarArista(indiceArista); // Eliminar la arista del grafo
-                Destroy(gameObject); // Destruir la representación física de la cuerda
+                grafo.EliminarArista(indiceArista);  // Actualiza el grafo.
+                Destroy(gameObject);  // Destruye la cuerda física.
             }
         }
     }
