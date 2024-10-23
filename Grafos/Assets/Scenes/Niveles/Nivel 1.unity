@@ -1216,7 +1216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  ropes: []
+  ropes:
+  - {fileID: 815101103}
+  - {fileID: 1240195783}
 --- !u!1 &1188103313
 GameObject:
   m_ObjectHideFlags: 0
