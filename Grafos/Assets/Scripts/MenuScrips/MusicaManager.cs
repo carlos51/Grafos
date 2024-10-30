@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class MusicaManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private static MusicaManager instance;
+
     void Start()
     {
-        
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
