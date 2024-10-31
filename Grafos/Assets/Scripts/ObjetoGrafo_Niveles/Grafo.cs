@@ -1,39 +1,59 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Grafo
 {
-    public List<GameObject> vertices;  // Vértices del grafo (alfileres).
-    public List<(int, int)> aristas;   // Aristas (cuerdas) como pares de índices.
+    public List<int>[] adyacencias;  // Lista de adyacencia para representar el grafo
+    public int numVertices;
 
-    public Grafo(List<GameObject> vertices)
+    public Grafo(int numVertices)
     {
-        this.vertices = vertices;
-        aristas = new List<(int, int)>();
-    }
-
-    // Agrega una arista (cuerda) entre dos vértices.
-    public void AgregarArista(int v1, int v2)
-    {
-        aristas.Add((v1, v2));
-        Debug.Log($"Arista agregada entre {v1} y {v2}");
-    }
-
-    // Elimina una arista del grafo.
-    public void EliminarArista(int indice)
-    {
-        if (indice >= 0 && indice < aristas.Count)
+        this.numVertices = numVertices;
+        adyacencias = new List<int>[numVertices];
+        for (int i = 0; i < numVertices; i++)
         {
-            var arista = aristas[indice];
-            aristas.RemoveAt(indice);
-            Debug.Log($"Arista eliminada entre {arista.Item1} y {arista.Item2}");
+            adyacencias[i] = new List<int>();
         }
     }
 
-    // Verifica si se ha formado un camino hamiltoniano.
-    public bool CaminoHamiltoniano()
+    public void AgregarArista(int v1, int v2)
     {
-        // Lógica de detección de camino hamiltoniano (simplificada por ahora).
-        return aristas.Count == vertices.Count - 1;
+        adyacencias[v1].Add(v2);
+        adyacencias[v2].Add(v1);
+    }
+
+    public void EliminarArista(int v1, int v2)
+    {
+        adyacencias[v1].Remove(v2);
+        adyacencias[v2].Remove(v1);
+    }
+
+    // Verifica si se ha formado un camino o ciclo hamiltoniano
+    public bool EsHamiltoniano()
+    {
+        bool[] visitados = new bool[numVertices];
+        return HamiltonianoRecursivo(0, visitados, 1);
+    }
+
+    private bool HamiltonianoRecursivo(int actual, bool[] visitados, int visitadosCount)
+    {
+        visitados[actual] = true;
+
+        // Si hemos visitado todos los vértices una vez, es hamiltoniano
+        if (visitadosCount == numVertices) return true;
+
+        // Explorar vecinos
+        foreach (var vecino in adyacencias[actual])
+        {
+            if (!visitados[vecino])
+            {
+                if (HamiltonianoRecursivo(vecino, visitados, visitadosCount + 1))
+                    return true;
+            }
+        }
+
+        // Backtracking
+        visitados[actual] = false;
+        return false;
     }
 }
+
