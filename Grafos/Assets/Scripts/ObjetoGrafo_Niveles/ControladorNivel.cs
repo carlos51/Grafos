@@ -17,8 +17,18 @@ public class ControladorNivel : MonoBehaviour
     void CrearAristasIniciales()
     {
         // Conectar cada par de vértices con una cuerda (arista) según el nivel
+        CrearArista(7, 5);
+        CrearArista(1, 7);
+        CrearArista(0, 5);
         CrearArista(0, 1);
-        CrearArista(1, 2);
+        CrearArista(0, 2);
+        CrearArista(2, 6);
+        CrearArista(5, 6);
+        CrearArista(2, 3);
+        CrearArista(3, 4);
+        CrearArista(4, 6);
+        CrearArista(3, 1);
+        CrearArista(4, 7);
         // Añade aquí más conexiones según la configuración de tu nivel
     }
 

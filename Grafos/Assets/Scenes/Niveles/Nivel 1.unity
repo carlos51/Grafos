@@ -852,7 +852,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e1d2c3d114e9da49ab3bb725691fff8, type: 3}
---- !u!1 &635884538
+--- !u!1 &571239695
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -860,8 +860,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 635884540}
-  - component: {fileID: 635884539}
+  - component: {fileID: 571239697}
+  - component: {fileID: 571239696}
   m_Layer: 0
   m_Name: BurstCollisionWorld
   m_TagString: Untagged
@@ -869,13 +869,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &635884539
+--- !u!114 &571239696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635884538}
+  m_GameObject: {fileID: 571239695}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
@@ -883,13 +883,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSpans:
     m_AlignBytes: 16
---- !u!4 &635884540
+--- !u!4 &571239697
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 635884538}
+  m_GameObject: {fileID: 571239695}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -4942,7 +4942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rope: {fileID: 1240195783}
-  indiceArista: 0
+  indiceArista: 1
 --- !u!1 &1266830598
 GameObject:
   m_ObjectHideFlags: 0
@@ -7722,6 +7722,6 @@ SceneRoots:
   - {fileID: 2048116667}
   - {fileID: 933053875}
   - {fileID: 1455345089}
-  - {fileID: 995123548}
   - {fileID: 1681837179}
-  - {fileID: 635884540}
+  - {fileID: 995123548}
+  - {fileID: 571239697}
