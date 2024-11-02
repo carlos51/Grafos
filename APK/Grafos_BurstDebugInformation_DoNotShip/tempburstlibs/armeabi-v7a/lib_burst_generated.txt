@@ -1,4 +1,4 @@
-Library: C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
+Library: C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --platform=Android
 --backend=burst-llvm-16
 --target=ARMV7A_NEON32
@@ -8,10 +8,10 @@ Library: C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\BurstOutput\tempburs
 --float-precision=Standard
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
---decode-folder=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Library\Burst
---output=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
+--temp-folder=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Temp\Burst
+--key-folder=D:/ABNER/2022.3.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Library\Burst
+--output=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -123,10 +123,10 @@ Library: C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\BurstOutput\tempburs
 --float-precision=Standard
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\Burst
---key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
---decode-folder=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Library\Burst
---output=C:\Users\carlos\Documents\Unity\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
+--temp-folder=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Temp\Burst
+--key-folder=D:/ABNER/2022.3.38f1/Editor/Data/PlaybackEngines/AndroidPlayer
+--decode-folder=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Library\Burst
+--output=C:\Users\abner\OneDrive\Documentos\GitHub\Grafos\Grafos\Temp\BurstOutput\tempburstlibs\armeabi-v7a\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Jobs.IJobExtensions+JobStruct`1[[Obi.DequeueIntoArrayJob`1[[Obi.BurstContact, Obi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], Obi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Obi.DequeueIntoArrayJob`1[[Obi.BurstContact, Obi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]&, Obi, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--64d3df577ce89813e80bdc974d373724
