@@ -163,6 +163,7 @@ namespace Obi
                 if (renderers[i].sourceMesh != null && renderers[i].TryGetComponent(out ObiPathSmoother smoother) && smoother.enabled)
                 {
                     int vertexCount = renderers[i].vertexCount * (int)renderers[i].meshInstances;
+                    renderers[i].renderParameters.layer = renderers[i].gameObject.layer;
                     batchList.Add(new DynamicRenderBatch<ObiRopeMeshRenderer>(i, vertexCount, renderers[i].materials, renderers[i].renderParameters));
                     sortedRenderers.Add(renderers[i]);
                 }

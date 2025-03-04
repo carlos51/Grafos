@@ -83,7 +83,10 @@ namespace Obi
         {
             // generate batches:
             for (int i = 0; i < renderers.Count; ++i)
+            {
+                renderers[i].renderParameters.layer = renderers[i].gameObject.layer;
                 batchList.Add(new ProceduralRenderBatch<ParticleVertex>(i, renderers[i].material, renderers[i].renderParameters));
+            }
 
             // sort batches:
             batchList.Sort();

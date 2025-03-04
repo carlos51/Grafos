@@ -125,6 +125,7 @@ namespace Obi
                 var renderer = renderers[i];
                 if (renderer.linkMesh != null && renderer.linkMaterial != null)
                 {
+                    renderer.renderParameters.layer = renderer.gameObject.layer;
                     batchList.Add(new InstancedRenderBatch(i, renderer.linkMesh, renderer.linkMaterial, renderer.renderParameters));
                 }
 

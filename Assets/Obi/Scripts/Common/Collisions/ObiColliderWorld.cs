@@ -328,8 +328,8 @@ namespace Obi
 
         public void DestroyCollider(ObiColliderHandle handle)
         {
-            // in-editor, we destroy data right away since the simulation is not running.
-            if (!Application.isPlaying)
+            // Destroy data right away if no simulation is running.
+            if (!Application.isPlaying || implementations.Count == 0)
                 DestroyColliderData(handle);
             else
             {
@@ -341,8 +341,8 @@ namespace Obi
 
         public void DestroyForceZone(ObiForceZoneHandle handle)
         {
-            // in-editor, we destroy data right away since the simulation is not running.
-            if (!Application.isPlaying)
+            // Destroy data right away if no simulation is running.
+            if (!Application.isPlaying || implementations.Count == 0)
                 DestroyForceZoneData(handle);
             else
             {
@@ -354,8 +354,8 @@ namespace Obi
 
         public void DestroyRigidbody(ObiRigidbodyHandle handle)
         {
-            // in-editor, we destroy data right away since the simulation is not running.
-            if (!Application.isPlaying)
+            // Destroy data right away if no simulation is running.
+            if (!Application.isPlaying || implementations.Count == 0)
                 DestroyRigidbodyData(handle);
             else
             {

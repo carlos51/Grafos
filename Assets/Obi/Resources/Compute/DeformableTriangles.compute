@@ -108,7 +108,8 @@ void UpdateEdgeNormals (uint3 id : SV_DispatchThreadID)
 
     float4 edge = renderablePositions[p2] - renderablePositions[p1];
     float4 avgWind = (wind[p1] + wind[p2]) * 0.5f;
-    float4 normal = avgWind -  edge * (dot(avgWind, edge) / dot(edge, edge));
+    float denom =  dot(edge, edge);
+    float4 normal = avgWind - (denom < EPSILON ? FLOAT4_ZERO : edge * dot(avgWind, edge) / denom);
 
     AccumulateNormal(p1,normal);
     AccumulateNormal(p2,normal);

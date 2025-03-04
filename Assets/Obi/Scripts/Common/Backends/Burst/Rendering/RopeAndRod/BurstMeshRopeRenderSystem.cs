@@ -84,7 +84,7 @@ namespace Obi
                     for (int m = 0; m < batch.materials.Length; ++m)
                     {
                         rp.material = batch.materials[m];
-                        Graphics.RenderMesh(rp, batch.mesh, m, m_Solver.transform.localToWorldMatrix, null);
+                        Graphics.RenderMesh(rp, batch.mesh, m, m_Solver.transform.localToWorldMatrix, m_Solver.transform.localToWorldMatrix);
 
                         // Unity bug: Graphics.RenderMesh consistently crashes when existing play mode (seems fixed in 2021.3.4f1)
                         // https://issuetracker.unity3d.com/issues/the-editor-crashes-on-exit-when-using-graphics-dot-rendermesh

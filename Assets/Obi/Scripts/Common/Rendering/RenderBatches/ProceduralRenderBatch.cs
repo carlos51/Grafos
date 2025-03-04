@@ -116,7 +116,7 @@ namespace Obi
 
         public int CompareTo(IRenderBatch other)
         {
-            var pbatch = other as ProceduralRenderBatch<T>;            int idA = material != null ? material.GetInstanceID() : 0;            int idB = (pbatch != null && pbatch.material != null) ? pbatch.material.GetInstanceID() : 0;            int result = idA.CompareTo(idB);            if (result == 0)                return renderBatchParams.GetSortingID().CompareTo(pbatch.renderBatchParams.GetSortingID());            return result;
+            var pbatch = other as ProceduralRenderBatch<T>;            int idA = material != null ? material.GetInstanceID() : 0;            int idB = (pbatch != null && pbatch.material != null) ? pbatch.material.GetInstanceID() : 0;            int result = idA.CompareTo(idB);            if (result == 0)                return renderBatchParams.CompareTo(pbatch.renderBatchParams);            return result;
         }
 
         public void BakeMesh(int vertexOffset, int vertexCount, int triangleOffset, int triangleCount,

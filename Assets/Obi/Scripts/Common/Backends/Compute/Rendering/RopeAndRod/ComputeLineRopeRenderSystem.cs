@@ -92,7 +92,7 @@ namespace Obi
                         rp.worldBounds = m_Solver.bounds;
                         rp.camera = camera;
 
-                        Graphics.RenderMesh(rp, batch.mesh, 0, m_Solver.transform.localToWorldMatrix, null);
+                        Graphics.RenderMesh(rp, batch.mesh, 0, m_Solver.transform.localToWorldMatrix, m_Solver.transform.localToWorldMatrix);
                     }
                 }
             }

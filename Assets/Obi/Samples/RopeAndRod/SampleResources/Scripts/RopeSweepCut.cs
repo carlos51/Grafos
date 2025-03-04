@@ -69,9 +69,7 @@ public class RopeSweepCut : MonoBehaviour
         {
             ScreenSpaceCut(cutStartPosition, cutEndPosition);
             cut = false;
-            Invoke("sujeciones", 0.1f);
         }
-        
     }
 
     /**
@@ -146,12 +144,5 @@ public class RopeSweepCut : MonoBehaviour
         s = sNum / denom;
 
         return (r >= 0 && r <= 1 && s >= 0 && s <= 1);
-    }
-
-    private void sejeciones()
-    {
-        ObiParticleAttachment[] sujeciones = GetComponents<ObiParticleAttachment>();
-        sujeciones[0].enabled = false;
-        sujeciones[1].enabled = false;
     }
 }

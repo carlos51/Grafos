@@ -1,6 +1,27 @@
 # Change Log
 All notable changes to “Obi - Advanced ropes for Unity” will be documented in this file.
 
+## [7.0.4]
+
+### Fixed
+- Bug that caused inactive particles to still be rendered by ObiInstancedParticleRenderer.
+- Bug that preventing pin constraints' break threshold from working when using the Compute backend. 
+
+## [7.0.3]
+
+### Added
+- Object layer support for all renderers.
+- New "Synchronous Fixed" solver synchronization mode, similar to Obi 6, offers tighter integration with rigidbody physics.
+- New "Tangled Ropes" sample scene.
+
+## [7.0.2]
+
+### Fixed
+- Solvers not placed at the scene origin would result in actors having incorrect motion blur in HDRP.
+- Fixed issue when disabling all solvers and colliders simultaneously: ipon re-enabling them, the colliders would be ignored.
+- Issue withe ElectricalSparks sample scene, ObiRopePrefabPlugger sample component may sometimes thorw an exception dependin on Unity's OnEnable call order.
+- Rope would sometimes disappear when using aerodynamic constraints with zero wind in Burst, due to a math.project returning NaN. Replaced with math.projectsafe.
+
 ## [7.0.1]
 
 ### Added

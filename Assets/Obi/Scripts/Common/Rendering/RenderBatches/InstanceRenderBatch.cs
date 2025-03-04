@@ -87,7 +87,10 @@ namespace Obi
             {
                 idA = mesh != null ? mesh.GetInstanceID() : 0;
                 idB = (ibatch != null && ibatch.mesh != null) ? ibatch.mesh.GetInstanceID() : 0;
-                return idA.CompareTo(idB);
+                compareMat = idA.CompareTo(idB);
+
+                if (compareMat == 0)
+                    return renderBatchParams.CompareTo(ibatch.renderBatchParams);
             }
 
             return compareMat;

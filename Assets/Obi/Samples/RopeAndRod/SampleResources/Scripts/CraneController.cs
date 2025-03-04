@@ -7,6 +7,7 @@ public class CraneController : MonoBehaviour {
 
 	ObiRopeCursor cursor;
 	ObiRope rope;
+    public float speed = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -18,11 +19,11 @@ public class CraneController : MonoBehaviour {
 	void Update () {
 		if (Input.GetKey(KeyCode.W)){
 			if (rope.restLength > 6.5f)
-				cursor.ChangeLength(-1f * Time.deltaTime);
+				cursor.ChangeLength(-speed * Time.deltaTime);
 		}
 
 		if (Input.GetKey(KeyCode.S)){
-			cursor.ChangeLength(1f * Time.deltaTime);
+			cursor.ChangeLength(speed * Time.deltaTime);
 		}
 
 		if (Input.GetKey(KeyCode.A)){

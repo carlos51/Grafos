@@ -24,12 +24,12 @@ namespace Obi
         {
             instances = new List<GameObject>();
             smoother = GetComponent<ObiPathSmoother>();
-            smoother.actor.OnInterpolate += UpdatePlugs;
+            GetComponent<ObiActor>().OnInterpolate += UpdatePlugs;
         }
 
         void OnDisable()
         {
-            smoother.actor.OnInterpolate -= UpdatePlugs;
+            GetComponent<ObiActor>().OnInterpolate -= UpdatePlugs;
             ClearPrefabInstances();
         }
 

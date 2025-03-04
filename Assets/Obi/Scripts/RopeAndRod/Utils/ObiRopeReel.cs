@@ -13,14 +13,19 @@ namespace Obi
 		public float inThreshold = 0.4f;
 
 		[Header("Roll out/in speeds")]
-		public float outSpeed = 0.05f;
-		public float inSpeed = 0.15f;
+		public float outSpeed = 4;
+		public float inSpeed = 2;
 
-		public void Awake()
+        public float maxLength = 10;
+
+        private float restLength;
+
+        public void Awake()
 		{
 			cursor = GetComponent<ObiRopeCursor>();
 			rope = GetComponent<ObiRope>();
-		}
+            restLength = rope.restLength;
+        }
 
 		public void OnValidate()
 		{
@@ -33,21 +38,25 @@ namespace Obi
 		{
 			// get current and rest lengths:
 			float length = rope.CalculateLength();
-			float restLength = rope.restLength;
 
 			// calculate difference between current length and rest length:
 			float diff = Mathf.Max(0, length - restLength);
 
+            float lengthChange = 0;
+
 			// if the rope has been stretched beyond the reel out threshold, increase its rest length:
 			if (diff > outThreshold)
-				restLength += diff * outSpeed;
+                lengthChange = outSpeed * Time.deltaTime;
 
 			// if the rope is not stretched past the reel in threshold, decrease its rest length:
 			if (diff < inThreshold)
-				restLength -= diff * inSpeed;
+                lengthChange = -inSpeed * Time.deltaTime;
 
-			// set the new rest length:
-			cursor.ChangeLength(restLength);
+            // make sure not to exceed maxLength:
+            lengthChange -= Mathf.Max(0, restLength + lengthChange - maxLength);
+
+            // set the new rest length:
+            restLength = cursor.ChangeLength(lengthChange);
 		}
 	}
 }

@@ -134,6 +134,7 @@ namespace Obi
             {
                 if (renderers[i].TryGetComponent(out ObiPathSmoother smoother) && smoother.enabled)
                 {
+                    renderers[i].renderParams.layer = renderers[i].gameObject.layer;
                     batchList.Add(new ProceduralRenderBatch<ProceduralRopeVertex>(i, renderers[i].material, renderers[i].renderParams));
                     sortedRenderers.Add(renderers[i]);
                 }

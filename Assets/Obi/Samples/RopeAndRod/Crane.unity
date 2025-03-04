@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5551d37f45fd044ff8768019501c20a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1 &71297249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1628,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 44ab0cc40b59345718856f6e1c1225f3, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -2085,6 +2087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 1679a1802f2014f3ebb22f30f3a94662, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -2608,7 +2611,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.0000002, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 5.9533334, y: 0.91117644, z: -0.47590777}
+  m_ConnectedAnchor: {x: 5.953333, y: 0.91117644, z: -0.4759077}
   serializedVersion: 2
   m_UseSpring: 0
   m_Spring:

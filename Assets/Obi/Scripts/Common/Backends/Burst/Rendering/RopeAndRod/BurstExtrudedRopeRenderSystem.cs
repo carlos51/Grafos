@@ -78,7 +78,7 @@ namespace Obi
                     var rp = batch.renderParams;
                     rp.worldBounds = m_Solver.bounds;
 
-                    Graphics.RenderMesh(rp, batch.mesh, 0, m_Solver.transform.localToWorldMatrix, null);
+                    Graphics.RenderMesh(rp, batch.mesh, 0, m_Solver.transform.localToWorldMatrix, m_Solver.transform.localToWorldMatrix);
                 }
             }
         }

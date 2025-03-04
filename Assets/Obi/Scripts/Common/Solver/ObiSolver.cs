@@ -58,7 +58,8 @@ namespace Obi
         public enum Synchronization
         {
             Asynchronous,
-            Synchronous
+            Synchronous,
+            SynchronousFixed
         }
 
         [Serializable]
@@ -230,7 +231,7 @@ namespace Obi
         [NonSerialized] public SimplexCounts m_SimplexCounts;
 
         [NonSerialized] private IObiJobHandle simulationHandle;
-        [NonSerialized] private Synchronization bufferedSynchronization = Synchronization.Asynchronous;
+        [NonSerialized] private Synchronization bufferedSynchronization;
         [NonSerialized] private int steps = 0;
         [NonSerialized] private float substepTime = 0;
         [NonSerialized] private float simulatedTime = 0;
@@ -1103,6 +1104,7 @@ namespace Obi
 
         public void OnEnable()
         {
+            bufferedSynchronization = synchronization;
             accumulatedTime = 0;
         }
 
@@ -1118,13 +1120,25 @@ namespace Obi
                 if (bufferedSynchronization == Synchronization.Asynchronous)
                     CompleteSimulation();
             }
+
+            if (bufferedSynchronization == Synchronization.SynchronousFixed)
+            {
+                // Update collider world, making sure it will also update after FixedUpdate() for solvers not using fixed sync.
+                ObiColliderWorld.GetInstance().UpdateWorld(Time.fixedDeltaTime);
+                ObiColliderWorld.GetInstance().FrameStart();
+
+                // kick off this step's simulation, and immediately wait for it to complete:
+                StartSimulation(Time.fixedDeltaTime, 1);
+                CompleteSimulation();
+            }
+           
         }
 
         private void Update()
         {
             // Make sure ObiColliderWorld updates after all solvers have called CompleteSimulation() on their FixedUpdate.
             // This way we can be sure no physics updates are in flight.
-            if (steps > 0)
+            if (steps > 0 && bufferedSynchronization != Synchronization.SynchronousFixed)
             {
                 ObiColliderWorld.GetInstance().UpdateWorld(Time.fixedDeltaTime * steps);
             }
@@ -1146,11 +1160,12 @@ namespace Obi
                 UpdateBounds();
             }
 
-            if (bufferedSynchronization == Synchronization.Asynchronous)
+            if (bufferedSynchronization == Synchronization.Asynchronous ||
+                bufferedSynchronization == Synchronization.SynchronousFixed)
                 Render(accumulatedTime);
 
             // if in play mode, kick off this frame's simulation.
-            if (Application.isPlaying)
+            if (Application.isPlaying && bufferedSynchronization != Synchronization.SynchronousFixed)
                 StartSimulation(Time.fixedDeltaTime, steps);
 
             if (bufferedSynchronization == Synchronization.Synchronous)
@@ -1265,8 +1280,6 @@ namespace Obi
             if (initialized)
             {
                 CompleteSimulation();
-
-                ObiColliderWorld.GetInstance().FlushHandleBuffers();
 
                 // Clear all constraints:
                 PushConstraints();
@@ -1810,11 +1823,11 @@ namespace Obi
             if (!initialized)
                 return;
 
-            implementation.RequestReadback();
-
             OnRequestReadback?.Invoke(this);
             foreach (ObiActor actor in actors)
                 actor.RequestReadback();
+
+            implementation.RequestReadback();
 
             // We must read the entire contacts buffer instead of the amount of contacts the CPU
             // has from last frame, since we need to get both the counter value and the contacts data on the same
@@ -1874,6 +1887,9 @@ namespace Obi
         {
             if (actor == null)
                 return false;
+
+            // remove from add buffer: TODO: use list instead of queue.
+            addBuffer = new Queue<ObiActor>(addBuffer.Where(s => s != actor));
 
             // Find actor index in our actors array:
             int index = actors.IndexOf(actor);

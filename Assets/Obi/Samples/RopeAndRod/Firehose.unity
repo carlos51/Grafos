@@ -1043,6 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: f342c944c10cc4c9188a4f352c6a6eee, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -1162,6 +1163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 1679a1802f2014f3ebb22f30f3a94662, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -6127,7 +6129,7 @@ MonoBehaviour:
     maxAnisotropy: 3
     sleepThreshold: 0.0001
     maxVelocity: 50
-    maxAngularVelocity: 10
+    maxAngularVelocity: 20
     collisionMargin: 0.02
     maxDepenetration: 5
     colliderCCD: 1

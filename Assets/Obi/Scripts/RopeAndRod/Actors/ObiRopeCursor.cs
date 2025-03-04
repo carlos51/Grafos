@@ -107,11 +107,11 @@ namespace Obi
                         // positive direction:
                         if (direction)
                         {
-                            RemoveParticleAt(solver.particleToActor[m_CursorElement.particle2].indexInActor);
-                            rope.elements.RemoveAt(index);
-
                             if (index < rope.elements.Count)
                             {
+                                RemoveParticleAt(solver.particleToActor[m_CursorElement.particle2].indexInActor);
+                                rope.elements.RemoveAt(index);
+
                                 if (rope.elements[index].particle1 == m_CursorElement.particle2)
                                     rope.elements[index].particle1 = m_CursorElement.particle1;
 
@@ -122,11 +122,11 @@ namespace Obi
                         }
                         else // negative direction:
                         {
-                            RemoveParticleAt(solver.particleToActor[m_CursorElement.particle1].indexInActor);
-                            rope.elements.RemoveAt(index);
-
                             if (index > 0)
                             {
+                                RemoveParticleAt(solver.particleToActor[m_CursorElement.particle1].indexInActor);
+                                rope.elements.RemoveAt(index);
+
                                 if (rope.elements[index - 1].particle2 == m_CursorElement.particle1)
                                     rope.elements[index - 1].particle2 = m_CursorElement.particle2;
                                 m_CursorElement = rope.elements[index - 1];

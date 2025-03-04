@@ -14,6 +14,7 @@ namespace Obi
     [Serializable]
     public struct RenderBatchParams
     {
+        [HideInInspector] public int layer;
         public LightProbeUsage lightProbeUsage;
         public ReflectionProbeUsage reflectionProbeUsage;
         public ShadowCastingMode shadowCastingMode;
@@ -23,6 +24,7 @@ namespace Obi
 
         public RenderBatchParams(bool receiveShadow)
         {
+            layer = 0;
             lightProbeUsage = LightProbeUsage.BlendProbes;
             reflectionProbeUsage = ReflectionProbeUsage.BlendProbes;
             shadowCastingMode = ShadowCastingMode.On;
@@ -33,6 +35,7 @@ namespace Obi
 
         public RenderBatchParams(Renderer renderer)
         {
+            this.layer = renderer.gameObject.layer;
             this.lightProbeUsage = renderer.lightProbeUsage;
             this.reflectionProbeUsage = renderer.reflectionProbeUsage;
             this.shadowCastingMode = renderer.shadowCastingMode;
@@ -41,15 +44,17 @@ namespace Obi
             this.renderingLayerMask = renderer.renderingLayerMask;
         }
 
-        public int GetSortingID()
+        public int CompareTo(RenderBatchParams param)
         {
-            int id = (int)lightProbeUsage;
-            id |= ((int)reflectionProbeUsage) << 4;
-            id |= ((int)shadowCastingMode) << 8;
-            id |= (receiveShadows ? 1 : 0) << 12;
-            id |= ((int)motionVectors) << 13;
-            id |= ((int)renderingLayerMask) << 17;
-            return id;
+            int cmp = layer.CompareTo(param.layer);
+            if (cmp == 0) cmp = renderingLayerMask.CompareTo(param.renderingLayerMask);
+            if (cmp == 0) cmp = lightProbeUsage.CompareTo(param.lightProbeUsage);
+            if (cmp == 0) cmp = reflectionProbeUsage.CompareTo(param.reflectionProbeUsage);
+            if (cmp == 0) cmp = shadowCastingMode.CompareTo(param.shadowCastingMode);
+            if (cmp == 0) cmp = receiveShadows.CompareTo(param.receiveShadows);
+            if (cmp == 0) cmp = motionVectors.CompareTo(param.motionVectors);
+
+            return cmp;
         }
 
         public RenderParams ToRenderParams()
@@ -65,6 +70,7 @@ namespace Obi
             renderParams.receiveShadows = receiveShadows;
             renderParams.motionVectorMode = motionVectors;
             renderParams.renderingLayerMask = renderingLayerMask;
+            renderParams.layer = layer;
             return renderParams;
         }
     }

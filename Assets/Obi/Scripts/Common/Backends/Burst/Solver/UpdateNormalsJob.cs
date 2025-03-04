@@ -86,7 +86,7 @@ namespace Obi
 
             float4 edge = renderPositions[p2] - renderPositions[p1];
             float4 avgWind = (wind[p1] + wind[p2]) * 0.5f;
-            float4 normal = avgWind - math.project(avgWind, edge);
+            float4 normal = avgWind - math.projectsafe(avgWind, edge);
 
             BurstMath.AtomicAdd(normals, p1, normal);
             BurstMath.AtomicAdd(normals, p2, normal);

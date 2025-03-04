@@ -145,7 +145,7 @@ namespace Obi
                 rp.camera = camera;
                 rp.matProps = matProps;
 
-                Graphics.RenderMesh(rp, renderBatch.mesh, 0, m_Solver.transform.localToWorldMatrix, null);
+                Graphics.RenderMesh(rp, renderBatch.mesh, 0, m_Solver.transform.localToWorldMatrix, m_Solver.transform.localToWorldMatrix);
             }
         }
 

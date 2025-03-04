@@ -375,6 +375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 9bc0d93bc33e445c7a765578064cdd1e, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1

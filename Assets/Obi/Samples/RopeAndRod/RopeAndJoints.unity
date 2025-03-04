@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 44ab0cc40b59345718856f6e1c1225f3, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -1369,6 +1370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 44ab0cc40b59345718856f6e1c1225f3, type: 2}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -2284,7 +2286,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0.5000001, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.34088674, y: -0.5973622, z: 0}
+  m_ConnectedAnchor: {x: 0.34088674, y: -0.59736216, z: 0}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2553,7 +2555,7 @@ MonoBehaviour:
     maxAnisotropy: 3
     sleepThreshold: 0.001
     maxVelocity: 50
-    maxAngularVelocity: 10
+    maxAngularVelocity: 20
     collisionMargin: 0.02
     maxDepenetration: 10
     colliderCCD: 1

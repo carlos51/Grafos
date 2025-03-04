@@ -48,15 +48,18 @@ namespace Obi{
 	            // If any changes were detected, call the property setter:
 	            if (EditorGUI.EndChangeCheck() && propertyFieldInfo != null)
                 {
-	 
-	                // Record object state for undo:
-	                Undo.RecordObject(property.serializedObject.targetObject, "Inspector");
-	 
-	                // Call property setter:
-	                propertyFieldInfo.SetValue(target,value,null);
+                    foreach (var t in property.serializedObject.targetObjects)
+                    {
+                        // Record object state for undo:
+                        Undo.RecordObject(t, "Inspector");
 
-                    // Record prefab modification:
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(property.serializedObject.targetObject);
+                        // Call property setter:
+                        propertyFieldInfo.SetValue(t, value, null);
+                        SetPropertyValue(property, propertyFieldInfo.PropertyType, value);
+
+                        // Record prefab modification:
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(t);
+                    }
                 }
 				EditorGUI.EndProperty();
 
@@ -120,7 +123,46 @@ namespace Obi{
                     throw new NotImplementedException("Unimplemented propertyType "+propertyType+".");
             }
         }
- 
+
+        private void SetPropertyValue(SerializedProperty property, Type type, object value)
+        {
+            switch (property.propertyType)
+            {
+                case SerializedPropertyType.Integer: 
+                    property.intValue = (int)value; break;
+                case SerializedPropertyType.Boolean:
+                    property.boolValue = (bool)value; break;
+                case SerializedPropertyType.Float:
+                    property.floatValue = (float)value; break;
+                case SerializedPropertyType.String:
+                    property.stringValue = (string)value; break;
+                case SerializedPropertyType.Color:
+                    property.colorValue = (Color)value; break;
+                case SerializedPropertyType.ObjectReference:
+                    property.objectReferenceValue = (UnityEngine.Object)value; break;
+                case SerializedPropertyType.ExposedReference:
+                    property.exposedReferenceValue = (UnityEngine.Object)value; break;
+                case SerializedPropertyType.LayerMask:
+                    property.intValue = (int)value; break;
+                case SerializedPropertyType.Enum:
+                    property.enumValueIndex = (int)value; break;
+                case SerializedPropertyType.Vector2:
+                    property.vector2Value = (Vector2)value; break;
+                case SerializedPropertyType.Vector3:
+                    property.vector3Value = (Vector3)value; break;
+                case SerializedPropertyType.Vector4:
+                    property.vector4Value = (Vector4)value; break;
+                case SerializedPropertyType.Rect:
+                    property.rectValue = (Rect)value; break;
+                case SerializedPropertyType.AnimationCurve:
+                    property.animationCurveValue = (AnimationCurve)value; break;
+                case SerializedPropertyType.Bounds:
+                    property.boundsValue = (Bounds)value; break;
+                default:
+                    throw new NotImplementedException("Unimplemented propertyType " + property.propertyType + ".");
+            }
+        }
+
     }
     #endif
 }

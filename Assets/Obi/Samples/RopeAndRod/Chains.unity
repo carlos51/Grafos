@@ -1814,6 +1814,7 @@ MonoBehaviour:
     scale: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -1845,6 +1846,7 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     rotation: {x: 0, y: 0, z: 90}
   renderParameters:
+    layer: 0
     lightProbeUsage: 1
     reflectionProbeUsage: 1
     shadowCastingMode: 1
@@ -2437,7 +2439,7 @@ MonoBehaviour:
     maxAnisotropy: 3
     sleepThreshold: 0.001
     maxVelocity: 50
-    maxAngularVelocity: 10
+    maxAngularVelocity: 20
     collisionMargin: 0.02
     maxDepenetration: 10
     colliderCCD: 1

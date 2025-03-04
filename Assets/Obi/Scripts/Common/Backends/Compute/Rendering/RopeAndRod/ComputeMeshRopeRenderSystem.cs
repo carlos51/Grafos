@@ -96,7 +96,7 @@ namespace Obi
                         for (int m = 0; m < batch.materials.Length; ++m)
                         {
                             rp.material = batch.materials[m];
-                            Graphics.RenderMesh(rp, batch.mesh, m, m_Solver.transform.localToWorldMatrix, null);
+                            Graphics.RenderMesh(rp, batch.mesh, m, m_Solver.transform.localToWorldMatrix, m_Solver.transform.localToWorldMatrix);
                         }
                     }
                 }

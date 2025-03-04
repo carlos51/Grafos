@@ -261,7 +261,7 @@ namespace Obi
             var pbatch = other as DynamicRenderBatch<T>;
             int result = CompareMaterialLists(materials, pbatch.materials);
             if (result == 0)
-                return renderBatchParams.GetSortingID().CompareTo(pbatch.renderBatchParams.GetSortingID());
+                return renderBatchParams.CompareTo(pbatch.renderBatchParams);
             return result;
         }
 
