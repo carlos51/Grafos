@@ -44,5 +44,5 @@ This repository is preserved as a prototype and learning artifact.
 
 ### GIF Preview
 <p align="center">
-  <img src="images/graph.gif" width="600" />
+  <img src="images/graph.gif" width="400" />
 </p>
